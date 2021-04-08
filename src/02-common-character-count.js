@@ -10,25 +10,42 @@
  * Strings have 3 common characters - 2 "a"s and 1 "c".
  */
 function getCommonCharacterCount(s1, s2) {
-  const length1 = s1.length;
-  const length2 = s2.length;
-  let maxS = '';
-  let minS = '';
-  if (length1 > length2) {
-    maxS = s1;
-    minS = s2;
-  } else {
-    maxS = s2;
-    minS = s1;
-  }
-  for (let i = 0; i < Math.max(length1, length2); i++) {
+  const Set1 = {};
+  const Set2 = {};
+  const Set3 = {};
+  s1.split('').sort().forEach((q) => {
+    if (q in Set1) {
+      Set1[q]++;
+    } else {
+      Set1[q] = 1;
+    }
+  });
 
-  }
+  // console.log(Set1)
+
+  s2.split('').sort().forEach((q) => {
+    if (q in Set2) {
+      Set2[q]++;
+    } else {
+      Set2[q] = 1;
+    }
+  });
+
+  // console.log(Set2);
+
+  Object.keys(Set1).forEach((key) => {
+    if (key in Set2) {
+      Set3[key] = Math.min(Set1[key], Set2[key]);
+    }
+  });
+  let count = 0;
+
+  // console.log(Object.keys(Set3));
+  Object.keys(Set3).forEach((key) => {
+    count += Set3[key];
+  });
+
+  return count;
 }
-
-s1 = 'aabcc';
-s2 = 'adcaa';
-s1.split('').sort();
-s2.split('').sort();
 
 module.exports = getCommonCharacterCount;
